@@ -1,6 +1,6 @@
 Package: VCFWrenchR
 Title: VCF file utilities
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Sean", "Davis", email = "seandavi@gmail.com", role = c("aut", "cre"))
 Description: This package is just a dumping ground for VCF file utilies.
 Depends:
