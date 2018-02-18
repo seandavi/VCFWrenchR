@@ -29,7 +29,7 @@ putatively disrupted genes.
 }
 \details{
 BND (break ends) are converted to single base pair
-\code{GRanges}. DUPs are considered as having two breaks and are
+\code{GRanges}. DUPs and INVs are considered as having two breaks and are
 converted to two individual single base pair regions. DELs are
 considered as contiguous regions and are converted to one GRanges
 object with \code{start} and \code{end} as specified in the VCF
