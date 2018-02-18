@@ -17,4 +17,3 @@ v = readVcf(vcffile,'hg19')
 as.json(head(v,3),pretty=TRUE)
 
 }
-

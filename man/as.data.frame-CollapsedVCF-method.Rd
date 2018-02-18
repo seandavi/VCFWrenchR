@@ -18,4 +18,3 @@ v = readVcf(vcffile,'hg19')
 head(as.data.frame(v))
 
 }
-

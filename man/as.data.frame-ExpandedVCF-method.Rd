@@ -20,4 +20,3 @@ class(ve)
 head(as.data.frame(v))
 
 }
-
