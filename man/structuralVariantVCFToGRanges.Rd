@@ -4,14 +4,14 @@
 \alias{structuralVariantVCFToGRanges}
 \title{Convert structural variant VCF to GRanges}
 \usage{
-structuralVariantVCFToGRanges(vcf, deletion_size = Inf)
+structuralVariantVCFToGRanges(vcf, max_deletion_size = Inf)
 }
 \arguments{
 \item{vcf}{\code{\link[VariantAnnotation]{VCF}} object encoding
 variants in VCF format (see
 \link{\url{http://samtools.github.io/hts-specs/VCFv4.2.pdf}}}
 
-\item{deletion_upper_limit}{integer(1) giving the upper limit on
+\item{max_deletion_size}{integer(1) giving the upper limit on
 size of deletions to include. The idea is to treat focal
 deletions a little differently than large-scale deletions.}
 }

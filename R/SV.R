@@ -20,7 +20,7 @@
 #' @param vcf \code{\link[VariantAnnotation]{VCF}} object encoding
 #'     variants in VCF format (see
 #'     \link{\url{http://samtools.github.io/hts-specs/VCFv4.2.pdf}}
-#' @param deletion_upper_limit integer(1) giving the upper limit on
+#' @param max_deletion_size integer(1) giving the upper limit on
 #'     size of deletions to include. The idea is to treat focal
 #'     deletions a little differently than large-scale deletions.
 #'
@@ -28,8 +28,8 @@
 #'     structural variants coded as in Details
 #' 
 #' @export
-structuralVariantVCFToGRanges = function(vcf, deletion_size = Inf) {
-    if(!inherits(vcf,'VariantAnnotation::VCF')) {
+structuralVariantVCFToGRanges = function(vcf, max_deletion_size = Inf) {
+    if(!inherits(vcf,'VCF')) {
         stop('vcf parameter must inherit from VariantAnnotation::VCF class')
     }
     bndvars = vcf[info(vcf)$SVTYPE=="BND"]
@@ -37,17 +37,17 @@ structuralVariantVCFToGRanges = function(vcf, deletion_size = Inf) {
     dupvars = vcf[info(vcf)$SVTYPE=="DUP"]
     
     bnds = GRanges(seqnames(bndvars),IRanges(start(bndvars),width=1))
-    bnds$mcols = mcols(bndvars)
-    bnds = bnds[width(bnds)<= del_size_limit]
+    mcols(bnds) = mcols(bndvars)
+    bnds = bnds[width(bnds)<= max_deletion_size]
     dups = c(GRanges(seqnames(dupvars),
                      ranges = IRanges(start(dupvars),width=1)),
              GRanges(seqnames=seqnames(dupvars),
                      ranges=IRanges(start=info(dupvars)$END,width=1)))
-    dups$mcols = rbind(mcols(dupvars),mcols(dupvars))
+    mcols(dups) = rbind(mcols(dupvars),mcols(dupvars))
     dels = GRanges(seqnames=seqnames(delvars),
                    ranges=IRanges(start=start(delvars),end=info(delvars)$END))
     mcols(dels) = mcols(delvars)
-    dels = dels[width(dels) <= deletion_size]
+    dels = dels[width(dels) <= max_deletion_size]
 
     c(bnds, dups, dels)
 }
